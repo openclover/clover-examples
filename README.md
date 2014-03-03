@@ -15,6 +15,6 @@ Issue tracker: http://jira.atlassian.com/browse/CLOV
 
 Technical support: http://support.atlassian.com
 
-Download page: http://grails.org/plugin/clover
+Download page: http://www.atlassian.com/software/clover/download
 
 Clover home page: http://www.atlassian.com/clover 
