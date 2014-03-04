@@ -32,6 +32,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/tutorial/moneybags.iml" filepath="$PROJECT_DIR$/tutorial/moneybags.iml" />
+      <module fileurl="file://$PROJECT_DIR$/parameterized-junit4-example/parameterized-junit4-example.iml" filepath="$PROJECT_DIR$/parameterized-junit4-example/parameterized-junit4-example.iml" />
       <module fileurl="file://$PROJECT_DIR$/samples/samples.iml" filepath="$PROJECT_DIR$/samples/samples.iml" />
       <module fileurl="file://$PROJECT_DIR$/spock-example/spock-example.iml" filepath="$PROJECT_DIR$/spock-example/spock-example.iml" />
     </modules>
