@@ -39,7 +39,7 @@ buildscript {
 
 allprojects {
     dependencies {
-        clover "com.cenqua.clover:clover:3.3.0-SNAPSHOT"
+        clover "com.cenqua.clover:clover:3.3.0"
     }
 }
 
