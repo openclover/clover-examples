@@ -24,7 +24,7 @@ buildDir = "${projectDir}/target"
 
 repositories {
     mavenCentral() // spock
-    maven { url "https://maven.atlassian.com/public" } // clover
+    maven { url "https://maven.atlassian.com/repository/public" } // clover
     maven { url "https://maven.atlassian.com/public-snapshot" }
 }
 
