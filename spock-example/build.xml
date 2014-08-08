@@ -47,7 +47,7 @@ limitations under the License.
             <!-- to have groovyc task -->
             <dependency groupId="org.codehaus.groovy" artifactId="groovy-all" version="2.2.1"/>
             <!-- to have Clover instrumentation -->
-            <dependency groupId="com.cenqua.clover" artifactId="clover" version="3.3.0"/>
+            <dependency groupId="com.atlassian.clover" artifactId="clover" version="4.0.0"/>
         </artifact:dependencies>
         <echo message="classpath.spock=${toString:classpath.spock}"/>
     </target>
@@ -115,7 +115,7 @@ limitations under the License.
         <condition property="validation.testnames.ok">
             <!-- search for: "name="sl-22">maximum of two numbers</a>" -->
             <resourcecontains resource="${target.clover.report}/default-pkg/UnrollWithSeqNumber.html"
-                              substring="name=&quot;sl-22&quot;>maximum&amp;nbsp;of&amp;nbsp;two&amp;nbsp;numbers&lt;/a>"/>
+                              substring=">maximum&amp;#160;of&amp;#160;two&amp;#160;numbers&lt;/a>"/>
         </condition>
         <fail message="HTML report does not have static test names" unless="validation.testnames.ok"/>
 
@@ -123,7 +123,7 @@ limitations under the License.
         <condition property="validation.sequences.ok">
             <!-- search for: "UnrollWithSeqNumber.maximum of two numbers[0]</a>" -->
             <resourcecontains resource="${target.clover.report}/default-pkg/test-UnrollWithSeqNumber.html"
-                              substring="UnrollWithSeqNumber.maximum of two numbers[0]&lt;/a>"/>
+                              substring=">UnrollWithSeqNumber.maximum of two numbers[0]&lt;/a>"/>
         </condition>
         <fail message="HTML report does not have runtime test names with sequence numbers" unless="validation.sequences.ok"/>
 
@@ -131,7 +131,7 @@ limitations under the License.
         <condition property="validation.selectors.ok">
             <!-- search for: "UnrollWithVarsWithSelectors.Fred is a male person</a>" -->
             <resourcecontains resource="${target.clover.report}/default-pkg/test-UnrollWithVarsWithSelectors.html"
-                              substring="UnrollWithVarsWithSelectors.Fred is a male person&lt;/a>"/>
+                              substring=">UnrollWithVarsWithSelectors.Fred is a male person&lt;/a>"/>
         </condition>
         <fail message="HTML report does not have runtime test names with variable selectors" unless="validation.selectors.ok"/>
     </target>
