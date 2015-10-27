@@ -38,7 +38,7 @@ limitations under the License.
 
     <target name="resolve.dependencies" depends="init.maven.tasks">
         <artifact:dependencies pathId="project.classpath">
-            <dependency groupId="com.atlassian.clover" artifactId="clover" version="4.0.5"/>
+            <dependency groupId="com.atlassian.clover" artifactId="clover" version="4.0.6"/>
             <dependency groupId="junit" artifactId="junit" version="4.10"/>
         </artifact:dependencies>
         <echo message="classpath.spock=${toString:project.classpath}"/>

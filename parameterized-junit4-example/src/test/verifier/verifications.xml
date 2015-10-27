@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<verifications>
+    <files>
+        <file>
+            <!-- search for: "test[0](SquareTest)" -->
+            <location>target/site/clover/default-pkg/test-SquareTest.html</location>
+            <contains>SquareTest.test\[0\]\(SquareTest\)</contains>
+        </file>
+        <file>
+            <!-- search for: "test[5](SquareTest)" -->
+            <location>target/site/clover/default-pkg/test-SquareTest.html</location>
+            <contains>SquareTest.test\[5\]\(SquareTest\)</contains>
+        </file>
+    </files>
+</verifications>
