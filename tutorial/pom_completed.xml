@@ -57,7 +57,7 @@
                 <plugins>
                     <plugin>
                         <groupId>com.atlassian.maven.plugins</groupId>
-                        <artifactId>maven-clover2-plugin</artifactId>
+                        <artifactId>clover-maven-plugin</artifactId> <!-- maven-clover2-plugin for version <= 4.0.6 -->
                         <executions>
                             <execution>
                                 <id>clover</id>
@@ -76,7 +76,7 @@
                  <plugins>
                      <plugin>
                          <groupId>com.atlassian.maven.plugins</groupId>
-                         <artifactId>maven-clover2-plugin</artifactId>
+                         <artifactId>clover-maven-plugin</artifactId> <!-- maven-clover2-plugin for version <= 4.0.6 -->
                      </plugin>
                  </plugins>
              </reporting>
@@ -87,7 +87,7 @@
                 <plugins>
                     <plugin>
                         <groupId>com.atlassian.maven.plugins</groupId>
-                        <artifactId>maven-clover2-plugin</artifactId>
+                        <artifactId>clover-maven-plugin</artifactId> <!-- maven-clover2-plugin for version <= 4.0.6 -->
                         <executions>
                             <execution>
                                 <id>clover</id>
