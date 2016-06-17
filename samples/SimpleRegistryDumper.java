@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-package com.atlassian.clover.samples;
-
 import com.atlassian.clover.CloverDatabase;
 import com.atlassian.clover.CoverageDataSpec;
 import com.atlassian.clover.api.registry.ClassInfo;

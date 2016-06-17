@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-package com.atlassian.clover.samples;
-
 import com.atlassian.clover.api.CloverException;
 import com.atlassian.clover.api.instrumentation.InstrumentationSession;
 import com.atlassian.clover.api.registry.FileInfo;
@@ -82,7 +80,10 @@ public class SimpleCodeInstrumenter {
                 200, 100, sourceFile.lastModified(), sourceFile.length(), 3423452);
 
         // example: register a class (in current file)
-        session.enterClass("Foo", new FixedSourceRegion(10, 1), false, false, false);
+        session.enterClass("Foo",                            // class name
+                new FixedSourceRegion(10, 1),                // start row:column
+                Modifiers.createFrom(Modifier.PUBLIC, null), // modifiers and annotations
+                false, false, false);                        // is interface, is enum, is annotation
 
         // example: add a method to the Foo class
         MethodSignature methodSignature = new MethodSignature("helloWorld", null,  // method name and generic type
@@ -90,12 +91,20 @@ public class SimpleCodeInstrumenter {
                 new Parameter[] { new Parameter("String", "name") },               // formal parameters
                 null,                                                              // throws
                 Modifiers.createFrom(Modifier.PROTECTED | Modifier.STATIC, null)); // modifiers
-        session.enterMethod(new ContextSet(), new FixedSourceRegion(12, 1),          // start row:column
-                methodSignature, false, false, 5, LanguageConstruct.Builtin.METHOD); // other attributes
+        session.enterMethod(new ContextSet(),
+                new FixedSourceRegion(12, 1),  // start row:column
+                methodSignature,  // signature
+                false,            // is test method
+                null,             // test name (if different from the method name)
+                false,            // is lambda function
+                5,                // cyclomatic complexity
+                LanguageConstruct.Builtin.METHOD);
 
         // example: add a statement in the helloWorld method
-        session.addStatement(new ContextSet(), new FixedSourceRegion(13, 1, 13, 44),
-                3, LanguageConstruct.Builtin.STATEMENT);
+        session.addStatement(new ContextSet(),
+                new FixedSourceRegion(13, 1, 13, 44),  // start row:column, end row:column
+                3,                                     // cyclomatic complexity
+                LanguageConstruct.Builtin.STATEMENT);
 
         // end method, class and a file
         session.exitMethod(14, 1);  // end row:column
