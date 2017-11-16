@@ -9,12 +9,6 @@ Examples are open-source, based on the Apache License version 2.0.
 Atlassian Clover links
 ======================
 
-Documentation: http://confluence.atlassian.com/display/CLOVER/Clover+Documentation+Home
+Home page: http://openclover.org
 
-Issue tracker: http://jira.atlassian.com/browse/CLOV
-
-Technical support: http://support.atlassian.com
-
-Download page: http://www.atlassian.com/software/clover/download
-
-Clover home page: http://www.atlassian.com/clover 
+Issue tracker: https://bitbucket.org/openclover/clover/issues
