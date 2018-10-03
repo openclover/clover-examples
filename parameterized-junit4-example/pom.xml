@@ -9,6 +9,11 @@
     <name>Parameterized JUnit4 Example</name>
     <dependencies>
         <dependency>
+            <groupId>org.openclover</groupId>
+            <artifactId>clover</artifactId>
+            <version>4.3.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.12</version>
@@ -39,9 +44,16 @@
                 <version>1.1</version>
             </plugin>
             <plugin>
-                <groupId>com.atlassian.maven.plugins</groupId>
+                <groupId>org.openclover</groupId>
                 <artifactId>clover-maven-plugin</artifactId> <!-- maven-clover2-plugin for version <= 4.0.6 -->
-                <version>4.1.1</version>
+                <version>4.3.1-SNAPSHOT</version>
+            </plugin>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
             </plugin>
         </plugins>
     </build>
