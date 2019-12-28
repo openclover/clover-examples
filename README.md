@@ -11,4 +11,6 @@ Atlassian Clover links
 
 Home page: http://openclover.org
 
-Issue tracker: https://bitbucket.org/openclover/clover/issues
+Issue tracker: https://github.com/openclover/clover/issues
+
+Source repository: https://github.com/openclover/clover-examples
