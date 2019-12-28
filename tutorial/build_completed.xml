@@ -35,7 +35,7 @@
     <target name="code.compile" unless="groovy.exists"
             description="Creates ${app.build} directory and compiles sources from ${src} to ${app.build}">
         <mkdir dir="${app.build}"/>
-        <javac srcdir="${src}" destdir="${app.build}" classpathref="build.classpath" source="1.4"/>
+        <javac srcdir="${src}" destdir="${app.build}" classpathref="build.classpath" source="1.7"/>
     </target>
 
     <target name="test.compile" depends="code.compile"  unless="groovy.exists"
@@ -43,7 +43,7 @@
         <mkdir dir="${app.build}"/>
         <javac srcdir="${test.src}"
                destdir="${app.build}"
-               classpathref="testbuild.classpath" source="1.4"/>
+               classpathref="testbuild.classpath" source="1.7"/>
     </target>
 
     <target name="test.run" depends="test.compile, groovy.compile" description="Runs the tests">
@@ -70,7 +70,7 @@
             <src path="src/test/groovy"/>
             <src path="${src}"/>
             <src path="${test.src}"/>
-            <javac classpathref="testbuild.classpath" source="1.5"/>
+            <javac classpathref="testbuild.classpath" source="1.7"/>
         </groovyc>
     </target>
 
