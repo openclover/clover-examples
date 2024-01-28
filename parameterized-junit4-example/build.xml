@@ -15,15 +15,15 @@ limitations under the License.
 -->
 
 <project name="ParameterizedJUnit4Example" basedir="." default="report" xmlns:artifact="urn:maven-artifact-ant">
+    <property name="src.main.dir" location="src/main/java"/>
     <property name="src.test.dir" location="src/test/java"/>
     <property name="target.dir" location="target"/>
     <property name="target.classes.dir" location="${target.dir}/classes"/>
     <property name="target.clover.db" location="${target.dir}/clover/db/clover.db"/>
     <property name="target.clover.report" location="${target.dir}/clover/report"/>
     <property name="lib.dir" location="${target.dir}/lib"/>
-
     <property name="maven.ant.tasks.url"
-              value="http://repo1.maven.org/maven2/org/apache/maven/maven-ant-tasks/2.1.3/maven-ant-tasks-2.1.3.jar"/>
+              value="https://repo1.maven.org/maven2/org/apache/maven/maven-ant-tasks/2.1.3/maven-ant-tasks-2.1.3.jar"/>
     <property name="maven.ant.tasks.jar" value="${lib.dir}/maven-ant-tasks-2.1.3.jar"/>
 
     <target name="bootstrap.maven.tasks">
@@ -38,17 +38,17 @@ limitations under the License.
 
     <target name="resolve.dependencies" depends="init.maven.tasks">
         <artifact:dependencies pathId="project.classpath">
-            <dependency groupId="org.openclover" artifactId="clover" version="4.4.1"/>
-            <dependency groupId="junit" artifactId="junit" version="4.10"/>
+            <dependency groupId="org.openclover" artifactId="clover" version="4.5.0"/>
+            <dependency groupId="junit" artifactId="junit" version="4.13.2"/>
+            <dependency groupId="org.hamcrest" artifactId="hamcrest-core" version="2.2"/>
+            <dependency groupId="org.hamcrest" artifactId="hamcrest-library" version="2.2"/>
         </artifact:dependencies>
-        <echo message="classpath.spock=${toString:project.classpath}"/>
+        <echo message="resolve.dependencies.classpath.spock=${toString:project.classpath}"/>
     </target>
 
     <target name="init.clover" depends="resolve.dependencies">
         <taskdef resource="cloverlib.xml" classpathref="project.classpath"/>
-        <property name="clover.license.path" location="${user.home}/clover.license"/>
         <clover-setup initstring="${target.clover.db}">
-
         </clover-setup>
     </target>
 
@@ -58,11 +58,22 @@ limitations under the License.
 
     <target name="compile" depends="init">
         <mkdir dir="${target.classes.dir}"/>
-        <javac srcdir="${src.test.dir}" destdir="${target.classes.dir}" classpathref="project.classpath"/>
+		<echo message="compile.classpath.spock=${toString:project.classpath}"/>
+        <javac  deprecation="true"
+           includeantruntime="false"
+           debug="true"
+           verbose="true"
+           encoding="utf-8" 
+		   destdir="${target.classes.dir}" 
+		   classpathref="project.classpath"
+		   >
+			<src path="${src.main.dir}"/>
+			<src path="${src.test.dir}"/>
+		</javac>
     </target>
 
     <target name="test-with-clover-listener" depends="compile">
-        <java classname="RunJUnit4WithClover" fork="true">
+        <java classname="org.openclover.samples.parameterized.junit4.example.RunJUnit4WithClover" fork="true">
             <classpath>
                 <path refid="project.classpath"/>
                 <pathelement location="${target.classes.dir}"/>
@@ -71,7 +82,7 @@ limitations under the License.
     </target>
 
     <target name="test-without-clover-listener" depends="compile">
-        <java classname="RunJUnit4WithoutClover" fork="true">
+        <java classname="org.openclover.samples.parameterized.junit4.example.RunJUnit4WithoutClover" fork="true">
             <classpath>
                 <path refid="project.classpath"/>
                 <pathelement location="${target.classes.dir}"/>

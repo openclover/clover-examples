@@ -1,0 +1,19 @@
+package org.openclover.samples.parameterized.junit4.example;
+
+import org.junit.runner.JUnitCore;
+
+import com.atlassian.clover.recorder.junit.JUnitTestRunnerInterceptor;
+
+/**
+ * Execute JUnit runner with Clover's test listener. Thanks to this, Clover can
+ * read the exact name of the test at runtime.
+ */
+public class RunJUnit4WithClover {
+
+	public static void main(String[] args) {
+		JUnitCore core = new JUnitCore();
+		core.addListener(new JUnitTestRunnerInterceptor());
+		core.run(new Class[] { SquareTest.class, FibonacciTest.class });
+	}
+
+}
