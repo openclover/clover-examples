@@ -1,0 +1,114 @@
+<!--
+Copyright 2014 Atlassian
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<project name="ParameterizedJUnit4Example" basedir="." default="report" xmlns:artifact="urn:maven-artifact-ant">
+    <property name="src.main.dir" location="src/main/java"/>
+    <property name="src.test.dir" location="src/test/java"/>
+    <property name="target.dir" location="target"/>
+    <property name="target.classes.dir" location="${target.dir}/classes"/>
+    <property name="target.clover.db" location="${target.dir}/clover/db/clover.db"/>
+    <property name="target.clover.report" location="${target.dir}/clover/report"/>
+    <property name="lib.dir" location="${target.dir}/lib"/>
+    <property name="maven.ant.tasks.url"
+              value="https://repo1.maven.org/maven2/org/apache/maven/maven-ant-tasks/2.1.3/maven-ant-tasks-2.1.3.jar"/>
+    <property name="maven.ant.tasks.jar" value="${lib.dir}/maven-ant-tasks-2.1.3.jar"/>
+
+    <target name="bootstrap.maven.tasks">
+        <mkdir dir="${lib.dir}"/>
+        <get src="${maven.ant.tasks.url}" dest="${maven.ant.tasks.jar}"/>
+    </target>
+
+    <target name="init.maven.tasks" depends="bootstrap.maven.tasks">
+        <typedef resource="org/apache/maven/artifact/ant/antlib.xml" uri="urn:maven-artifact-ant"
+                classpath="${maven.ant.tasks.jar}"/>
+    </target>
+
+    <target name="resolve.dependencies" depends="init.maven.tasks">
+        <artifact:dependencies pathId="project.classpath">
+            <dependency groupId="org.openclover" artifactId="clover" version="4.5.0"/>
+            <dependency groupId="junit" artifactId="junit" version="4.13.2"/>
+            <dependency groupId="org.hamcrest" artifactId="hamcrest-core" version="2.2"/>
+            <dependency groupId="org.hamcrest" artifactId="hamcrest-library" version="2.2"/>
+        </artifact:dependencies>
+        <echo message="resolve.dependencies.classpath.spock=${toString:project.classpath}"/>
+    </target>
+
+    <target name="init.clover" depends="resolve.dependencies">
+        <taskdef resource="cloverlib.xml" classpathref="project.classpath"/>
+        <clover-setup initstring="${target.clover.db}">
+        </clover-setup>
+    </target>
+
+    <target name="init" depends="init.clover">
+        <mkdir dir="${target.dir}"/>
+    </target>
+
+    <target name="compile" depends="init">
+        <mkdir dir="${target.classes.dir}"/>
+		<echo message="compile.classpath.spock=${toString:project.classpath}"/>
+        <javac  deprecation="true"
+           includeantruntime="false"
+           debug="true"
+           verbose="true"
+           encoding="utf-8" 
+		   destdir="${target.classes.dir}" 
+		   classpathref="project.classpath"
+		   >
+			<src path="${src.main.dir}"/>
+			<src path="${src.test.dir}"/>
+		</javac>
+    </target>
+
+    <target name="test-with-clover-listener" depends="compile">
+        <java classname="org.openclover.samples.parameterized.junit4.example.RunJUnit4WithClover" fork="true">
+            <classpath>
+                <path refid="project.classpath"/>
+                <pathelement location="${target.classes.dir}"/>
+            </classpath>
+        </java>
+    </target>
+
+    <target name="test-without-clover-listener" depends="compile">
+        <java classname="org.openclover.samples.parameterized.junit4.example.RunJUnit4WithoutClover" fork="true">
+            <classpath>
+                <path refid="project.classpath"/>
+                <pathelement location="${target.classes.dir}"/>
+            </classpath>
+        </java>
+    </target>
+
+    <target name="report">
+        <clover-report initstring="${target.clover.db}">
+            <current outfile="${target.clover.report}">
+                <format type="html" />
+            </current>
+        </clover-report>
+    </target>
+
+    <target name="validate" depends="test-with-clover-listener, report">
+        <!-- Test: runtime test names with sequence numbers are recognized -->
+        <condition property="validation.sequences.ok">
+            <!-- search for: "SquareTest.test[5](org.openclover.samples.parameterized.junit4.example.SquareTest)</span><a" -->
+            <resourcecontains resource="${target.clover.report}/org/openclover/samples/parameterized/junit4/example/test-SquareTest.html"
+                              substring="SquareTest.test[5]"/>
+        </condition>
+        <fail message="HTML report does not have runtime test names with sequence numbers" unless="validation.sequences.ok"/>
+    </target>
+
+    <target name="clean">
+        <delete dir="${target.dir}"/>
+    </target>
+</project>
