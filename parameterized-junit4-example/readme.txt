@@ -1,10 +1,18 @@
-Running parameterized-junit4-example from Ant:
+First Running parameterized-junit4-example from Maven:
 
-    ant clean test-with-clover-listener report
-    ant clean test-without-clover-listener report
-    ant clean validate
+    mvn clean clover:setup test clover:clover
+    mvn clean clover:setup test clover:clover verifier:verify
 
-Running parameterized-junit4-example from Maven:
+Then Running parameterized-junit4-example from Ant:
 
-    mvn clean clover2:setup test clover2:clover
-    mvn clean clover2:setup test clover2:clover verifier:verify
+On windows like this
+    ant -lib  %HOME%'\.m2\repository\org\openclover\clover\4.5.0' clean test-with-clover-listener report
+    ant -lib  %HOME%'\.m2\repository\org\openclover\clover\4.5.0' clean test-without-clover-listener report
+    ant -lib  %HOME%'\.m2\repository\org\openclover\clover\4.5.0' clean validate
+
+On unix or mac like this
+    ant -lib  ~/.m2/repository/org/openclover/clover/4.5.0  clean test-with-clover-listener report
+    ant -lib  ~/.m2/repository/org/openclover/clover/4.5.0  clean test-without-clover-listener report
+    ant -lib  ~/.m2/repository/org/openclover/clover/4.5.0  clean validate
+    
+Note: "ant validate" will be failed, because the result is found in an other path ... (take a look into validate.xml)

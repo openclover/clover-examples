@@ -2,14 +2,14 @@
 <verifications>
     <files>
         <file>
-            <!-- search for: "test[0](SquareTest)" -->
-            <location>target/site/clover/default-pkg/test-SquareTest.html</location>
-            <contains>SquareTest.test\[0\]\(SquareTest\)</contains>
+            <!-- search for e.g: "test[0](org.openclover.samples.parameterized.junit4.example.SquareTest)" -->
+            <location>target/site/clover/org/openclover/samples/parameterized/junit4/example/test-SquareTest.html</location>
+            <contains>SquareTest.test\[\d+\]\([\.\w]*SquareTest\)</contains>
         </file>
-        <file>
-            <!-- search for: "test[5](SquareTest)" -->
-            <location>target/site/clover/default-pkg/test-SquareTest.html</location>
-            <contains>SquareTest.test\[5\]\(SquareTest\)</contains>
+         <file>
+            <!-- search for e.g: "test[0](org.openclover.samples.parameterized.junit4.example.FibonacciTest)" -->
+            <location>target/site/clover/org/openclover/samples/parameterized/junit4/example/test-FibonacciTest.html</location>
+            <contains>FibonacciTest.test\w*\[\d+\]\([\.\w]*FibonacciTest\)</contains>
         </file>
     </files>
 </verifications>
